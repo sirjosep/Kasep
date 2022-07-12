@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_intro_1"
+    tools:context=".intro.IntroFragmentSlide1">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/putih" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="75dp"
+            android:layout_gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/tvJudul"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="@font/mgbrushversion2_regular"
+                android:text="K A S E P"
+                android:textColor="@color/biru_muda"
+                android:textSize="72dp" />
+            <TextView
+                android:id="@+id/tvSubJudul"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/tvJudul"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="@font/mgbrushversion2_regular"
+                android:textColor="@color/biru_muda"
+                android:textSize="24dp"
+                android:text="Kamus Resep"/>
+
+            <TextView
+                android:id="@+id/tvDescApp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvSubJudul"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/mgbrushversion2_regular"
+                android:lines="4"
+                android:maxLines="4"
+                android:lineSpacingExtra="5dp"
+                android:text="“ Dengan KASEP ( KAMUS RESEP )\n dapat membantu anda\nMENYELESAIKAN MASALAH ANDA\n MENEMUKAN RESEP MASAKAN “"
+                android:textAlignment="center"
+                android:textColor="@color/biru_muda"
+                android:textSize="24dp" />
+        </RelativeLayout>
+    </FrameLayout>
+</RelativeLayout>

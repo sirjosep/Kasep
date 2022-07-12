@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bg_intro_2_3_4"
+    tools:context=".intro.IntroFragmentSlide2">
+
+    <FrameLayout
+        android:id="@+id/flJudul"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_alignParentRight="true">
+        <ImageView
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:src="@drawable/putih_circle"/>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+            <TextView
+                android:id="@+id/tvJudul"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="@font/mgbrushversion2_regular"
+                android:text="K A S E P"
+                android:textColor="@color/biru_muda"
+                android:textSize="72dp" />
+            <TextView
+                android:id="@+id/tvSubJudul"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/tvJudul"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="@font/mgbrushversion2_regular"
+                android:textColor="@color/biru_muda"
+                android:textSize="24dp"
+                android:text="Kamus Resep"/>
+        </RelativeLayout>
+    </FrameLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/flJudul">
+
+        <jp.hamcheesedev.outlinedtextview.OutlinedTextView
+            android:id="@+id/tvTeks1Intro2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/mgbrushversion2_regular"
+            android:text="@string/teks2_intro2"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="28dp"
+            app:strokeColor="@color/biru_muda"
+            app:strokeWidth="2dp" />
+
+        <RelativeLayout
+            android:id="@+id/rl2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvTeks1Intro2">
+
+            <FrameLayout
+                android:id="@+id/flUnknown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="10dp">
+
+                <ImageView
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:src="@drawable/putih_circle" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="130dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/unknown" />
+            </FrameLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="70dp"
+                android:layout_toRightOf="@id/flUnknown"
+                android:src="@drawable/arrow_down" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rl2">
+
+            <jp.hamcheesedev.outlinedtextview.OutlinedTextView
+                android:id="@+id/tvTeks2Intro2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:fontFamily="@font/mgbrushversion2_regular"
+                android:text="@string/teks1_intro2"
+                android:textAlignment="center"
+                android:layout_marginVertical="50dp"
+                android:layout_marginStart="10dp"
+                android:textColor="@color/white"
+                android:textSize="28dp"
+                app:strokeColor="@color/biru_muda"
+                app:strokeWidth="2dp" />
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginEnd="10dp"
+                android:layout_marginVertical="10dp">
+
+                <ImageView
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:src="@drawable/putih_circle" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/jahe" />
+            </FrameLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>

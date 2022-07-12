@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Kasep</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="teks1_intro2">ANDA AKAN DAPAT\nMENGETAHUI NAMA \nDARI BAHAN MAKANAN \nTERSEBUT</string>
+    <string name="teks2_intro2">HANYA DENGAN\nMEMASUKKAN FOTO\nDARI BAHAN MAKANAN</string>
+    <string name="teks_intro3">TEMUKAN REKOMENDASI\nRESEP MAKANAN\nAtau MINUMAN DARI\nBAHAN YANG ANDA PUNYA</string>
+    <string name="teks1_intro4">TEMUKAN JUGA REKOMENDASI VIDEO\nTutorial UNTUK MENGOLAH RESEP\nMAKANAN ATAU MINUMAN TERSEBUT</string>
+    <string name="teks2_intro4">EXPLORE JUGA LEBIH BANYAK RESEP \nMAKANAN DARI RATUSAN BAHKAN \nSAMPAI RIBUAN RESEP MAKANAN YANG TERSEDIA ! \n \n Klik tombol Get started dibawah \nuntuk memulai</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="Empty_My_Recipe">belum ada riwayat, klik tombol cari resep untuk mendapatkan rekomendasi</string>
+</resources>

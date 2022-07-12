@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:backgroundTint="@color/biru_muda"
+    android:layout_margin="10dp">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp">
+        <RelativeLayout
+            android:id="@+id/rlPreviewResep"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/ivPreviewResep"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:paddingBottom="25dp"
+                android:layout_alignTop="@id/rlAttributePreview"
+                android:layout_marginRight="10dp" />
+            <RelativeLayout
+                android:id="@+id/rlAttributePreview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/ivPreviewResep">
+                <TextView
+                    android:id="@+id/tvNamaResep"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    tools:text="Nama Resep" />
+
+                <RelativeLayout
+                    android:id="@+id/rlTags"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvNamaResep"
+                    android:layout_marginTop="10dp">
+
+                    <RelativeLayout
+                        android:id="@+id/rlWaktuMemasak"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/ivIconWaktuMemasak"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_baseline_timer_24" />
+
+                        <TextView
+                            android:id="@+id/tvWaktuMemasak"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toRightOf="@id/ivIconWaktuMemasak"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            tools:text="Waktu Memasak" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rlPorsi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@id/rlWaktuMemasak">
+
+                        <ImageView
+                            android:id="@+id/ivIconPorsi"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_baseline_fastfood_24" />
+
+                        <TextView
+                            android:id="@+id/tvPorsi"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toRightOf="@id/ivIconPorsi"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            tools:text="Porsi" />
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/tvKesulitan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/rlPorsi"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/transparent"
+                        android:padding="8dp"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        tools:text="Tingkat Kesulitan" />
+                </RelativeLayout>
+            </RelativeLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomeActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:id="@+id/rlHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/oranye">
+            <ImageView
+                android:id="@+id/ivLogoKasep"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_alignParentLeft="true"
+                android:padding="20dp"
+                android:src="@drawable/logo_circle"/>
+            <TextView
+                android:id="@+id/tvTitleFragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/ivLogoKasep"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/mgbrushversion2_regular"
+                android:textSize="48dp"
+                android:textColor="@color/white"
+                android:text="Home"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/page_container_home"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/rlHeader"
+            android:orientation="vertical" />
+    </RelativeLayout>
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottomAppBar"
+        style="@style/Widget.MaterialComponents.BottomAppBar.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:fabAlignmentMode="center"
+        app:fabCradleMargin="10dp"
+        app:fabCradleRoundedCornerRadius="30dp"
+        app:fabAnimationMode="scale">
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigationView"
+            style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            app:backgroundTint="@android:color/transparent"
+            app:menu="@menu/item_menu" />
+    </com.google.android.material.bottomappbar.BottomAppBar>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_search_24"
+        android:backgroundTint="@color/oranye"
+        android:contentDescription="Deteksi Bahan mu!"
+        app:backgroundTint="@color/oranye"
+        app:layout_anchor="@id/bottomAppBar"/>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
