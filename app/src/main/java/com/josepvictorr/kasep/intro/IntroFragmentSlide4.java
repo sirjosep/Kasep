@@ -45,8 +45,8 @@ public class IntroFragmentSlide4 extends Fragment {
         btnGetStarted.setOnClickListener(view -> {
             new AlertDialog.Builder(rootView.getContext())
                     .setTitle("Download")
-                    .setMessage("Kurang lebih 30MB data akan di download, pastikan anda terhubung ke internet")
-                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setMessage("Kurang lebih 40MB data akan di download, pastikan anda terhubung ke internet")
+                    .setIcon(R.drawable.ic_baseline_cloud_download_24)
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int whichButton) {
                             loading = ProgressDialog.show(rootView.getContext(), null,"Downloading...", true,false);

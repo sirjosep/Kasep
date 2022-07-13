@@ -60,9 +60,6 @@ public class DetectActivity extends AppCompatActivity {
 
     static final String IMAGE_URL = "https://kiranadude.com/wp-content/uploads/2022/03/Cabbage.jpg";
 
-    private static final int REQUEST_CAPTURE_IMAGE = 100;
-
-    String imageFilePath;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,69 +74,10 @@ public class DetectActivity extends AppCompatActivity {
 
         }
         ivSampleBahanDeteksi = findViewById(R.id.ivSampleBahanDeteksi);
-        openCameraIntent();
-
-//        ivSampleBahanDeteksi = findViewById(R.id.ivSampleBahanDeteksi);
-//        Glide.with(this)
-//                .load(IMAGE_URL)
-//                .into(ivSampleBahanDeteksi);
-//
-//        Button btnDetect = findViewById(R.id.btnDetect);
-//        btnDetect.setOnClickListener(view -> {
-//            requestPostImage();
-//        });
-
+        requestPostImage();
+        Glide.with(this).load(getIntent().getStringExtra("path")).into(ivSampleBahanDeteksi);
     }
 
-    private void openCameraIntent(){
-        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        Toast.makeText(this, "Foto bahan makanan yang ingin diketahui", Toast.LENGTH_SHORT).show();
-        if (cameraIntent.resolveActivity(getPackageManager()) != null) {
-            File photoFile = null;
-            try {
-                photoFile = createImagePath();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            if (photoFile != null){
-                Uri photoUri = FileProvider.getUriForFile(this, "com.josepvictorr.kasep.provider", photoFile);
-                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
-                startActivityForResult(cameraIntent, REQUEST_CAPTURE_IMAGE);
-            }
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode,
-                                    Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CAPTURE_IMAGE) {
-            if (resultCode == Activity.RESULT_OK) {
-                requestPostImage();
-                Glide.with(this).load(imageFilePath).into(ivSampleBahanDeteksi);
-            }
-            else if(resultCode == Activity.RESULT_CANCELED) {
-                // User Cancelled the action
-            }
-        }
-    }
-
-    private File createImagePath() throws IOException {
-        String timeStamp =
-                new SimpleDateFormat("yyyyMMdd_HHmmss",
-                        Locale.getDefault()).format(new Date());
-        String imageFileName = "IMG_" + timeStamp + "_";
-        File storageDir =
-                getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
-        );
-
-        imageFilePath = image.getAbsolutePath();
-        return image;
-    }
     private void requestPostImage() {
         loading = ProgressDialog.show(this, null, "Melakukan Deteksi...", true, false);
         Thread mThread = new Thread(){
@@ -162,7 +100,7 @@ public class DetectActivity extends AppCompatActivity {
                                                                 Data.newBuilder().setImage(
                                                                         Image.newBuilder()
                                                                                 .setBase64(ByteString.copyFrom(Files.readAllBytes(
-                                                                                        new File(imageFilePath).toPath()
+                                                                                        new File(getIntent().getStringExtra("path")).toPath()
                                                                                 )))
                                                                 )
                                                         )
@@ -178,6 +116,7 @@ public class DetectActivity extends AppCompatActivity {
                             throw new RuntimeException("Post model outputs failed, status: " + postModelOutputsResponse.getStatus());
                         }
                         loading.dismiss();
+
                         Output output = postModelOutputsResponse.getOutputs(0);
                         TextView tvHasilDeteksi1 = findViewById(R.id.tvHasilDeteksi1);
                         TextView tvHasilDeteksi2 = findViewById(R.id.tvHasilDeteksi2);
@@ -232,8 +171,5 @@ public class DetectActivity extends AppCompatActivity {
             }
         };
         mThread.start();
-
-
-
     }
 }
