@@ -35,7 +35,6 @@ import java.util.Date;
 import java.util.Locale;
 
 public class HomeActivity extends AppCompatActivity {
-
     private static final int REQUEST_CAPTURE_IMAGE = 100;
 
     String imageFilePath;
@@ -99,18 +98,14 @@ public class HomeActivity extends AppCompatActivity {
     private void openCameraIntent(){
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         Toast.makeText(this, "Foto bahan makanan yang ingin diketahui", Toast.LENGTH_SHORT).show();
-        if (cameraIntent.resolveActivity(getPackageManager()) != null) {
-            File photoFile = null;
-            try {
-                photoFile = createImagePath();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            if (photoFile != null){
-                Uri photoUri = FileProvider.getUriForFile(this, "com.josepvictorr.kasep.provider", photoFile);
-                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
-                startActivityForResult(cameraIntent, REQUEST_CAPTURE_IMAGE);
-            }
+        File photoFile = null;
+        try {
+            photoFile = createImagePath();
+            Uri photoUri = FileProvider.getUriForFile(this, "com.josepvictorr.kasep.provider", photoFile);
+            cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+            startActivityForResult(cameraIntent, REQUEST_CAPTURE_IMAGE);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
