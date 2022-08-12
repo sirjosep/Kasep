@@ -24,7 +24,6 @@ import com.josepvictorr.kasep.recipe.DetailRecipeActivity;
 
 public class MyRecipeFragment extends Fragment {
     Context mContext;
-	RecyclerView rvMyRecipe;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

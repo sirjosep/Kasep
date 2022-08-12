@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_putih"
     tools:context=".bahan.BahanFragment">
 
     <RelativeLayout
@@ -14,7 +15,27 @@
             android:id="@+id/rvBahan"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/item_bahan" />
+            tools:listitem="@layout/item_bahan"
+            android:visibility="gone"/>
+        <TextView
+            android:id="@+id/tvHistoryNull"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginHorizontal="45dp"
+            android:textAlignment="center"
+            android:text="Anda belum memiliki riwayat deteksi, tekan tombol dibawah untuk memulai"
+            android:textColor="@color/oranye"
+            android:visibility="gone"/>
+        <ImageView
+            android:id="@+id/ivArrowDown"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_below="@id/tvHistoryNull"
+            android:layout_centerHorizontal="true"
+            android:backgroundTint="@color/oranye"
+            android:background="@drawable/ic_baseline_arrow_downward_24"
+            android:visibility="gone"/>
     </RelativeLayout>
 
 

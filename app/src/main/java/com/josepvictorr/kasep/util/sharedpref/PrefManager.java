@@ -10,9 +10,15 @@ public class PrefManager {
 
     int PRIVATE_MODE = 0;
 
+    public static final String SP_IdUser = "spIdUser";
+
     private static final String PREF_NAME = "intro";
 
     private static final String IS_FIRST_TIME_OPEN = "IsFirsTimeOpen";
+
+    public static final String SP_LoginCheck = "spLoginCheck";
+
+    public static final String SP_PetunjukCheck = "spPetunjukCheck";
 
     public PrefManager(Context context){
         this.context = context;
@@ -27,5 +33,33 @@ public class PrefManager {
 
     public boolean isFirstTimeOpen(){
         return pref.getBoolean(IS_FIRST_TIME_OPEN, true);
+    }
+
+    public void saveSPString(String keySP, String value) {
+        editor.putString(keySP, value);
+        editor.commit();
+    }
+
+    public void saveSPInt(String keySP, Integer value) {
+        editor.putInt(keySP, value);
+        editor.commit();
+    }
+
+
+    public void saveSPBoolean(String keySP, Boolean value) {
+        editor.putBoolean(keySP, value);
+        editor.commit();
+    }
+
+    public Boolean getSP_LoginCheck() {
+        return pref.getBoolean(SP_LoginCheck, false);
+    }
+
+    public Boolean getPetunjukCheck() {
+        return pref.getBoolean(SP_PetunjukCheck, false);
+    }
+
+    public int getSP_IdUser() {
+        return pref.getInt(SP_IdUser, 0);
     }
 }

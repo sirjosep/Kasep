@@ -17,7 +17,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <TextView
-                    android:id="@+id/tvJudulRekomendasi"
+                    android:id="@+id/tvNamaRekomendasi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
@@ -27,7 +27,7 @@
                     android:id="@+id/tvJumlahResep"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/tvJudulRekomendasi"
+                    android:layout_below="@id/tvNamaRekomendasi"
                     android:textColor="@color/black"
                     android:textSize="19sp"
                     tools:text="Jumlah Resep" />

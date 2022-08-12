@@ -4,16 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/biru_muda"
+    android:background="@drawable/bg_putih"
     tools:context=".recipe.DetailRecipeActivity">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/oranye">
+
+        </RelativeLayout>
         <FrameLayout
             android:id="@+id/flThumbnailDetail"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:visibility="gone">
             <ImageView
                 android:id="@+id/ivThumbnailDetail"
                 android:layout_width="match_parent"
@@ -29,7 +36,7 @@
                 android:textStyle="bold"
                 android:gravity="center"
                 android:drawablePadding="4dp"
-                android:background="@color/oranye"
+                android:background="@drawable/kotak_oranye"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginBottom="25dp"
                 android:layout_gravity="bottom"/>
@@ -37,7 +44,8 @@
         <RelativeLayout
             android:id="@+id/rlTagsDetail"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:visibility="gone">
             <RelativeLayout
                 android:id="@+id/rlWaktuMemasakDetail"
                 android:layout_width="wrap_content"
@@ -50,18 +58,19 @@
                     android:paddingLeft="8dp"
                     android:paddingTop="8dp"
                     android:paddingBottom="8dp"
-                    android:src="@drawable/ic_baseline_timer_24" />
+                    android:background="@drawable/ic_baseline_timer_24"
+                    android:backgroundTint="@color/oranye"/>
+
                 <TextView
                     android:id="@+id/tvWaktuMemasakDetail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
                     android:layout_toRightOf="@id/ivIconWaktuMemasakDetail"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
                     android:padding="8dp"
-                    android:textSize="15sp"
-                    android:textColor="@color/white"
-                    android:text="Waktu Memasak" />
+                    android:text="Waktu Memasak"
+                    android:textColor="@color/oranye"
+                    android:textSize="15sp" />
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/rlPorsiDetail"
@@ -76,7 +85,8 @@
                     android:paddingLeft="8dp"
                     android:paddingTop="8dp"
                     android:paddingBottom="8dp"
-                    android:src="@drawable/ic_baseline_fastfood_24" />
+                    android:background="@drawable/ic_baseline_fastfood_24"
+                    android:backgroundTint="@color/oranye"/>
                 <TextView
                     android:id="@+id/tvPorsiDetail"
                     android:layout_width="wrap_content"
@@ -86,9 +96,10 @@
                     android:layout_centerHorizontal="true"
                     android:padding="8dp"
                     android:textSize="15sp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/oranye"
                     android:text="Porsi" />
             </RelativeLayout>
+
             <TextView
                 android:id="@+id/tvKesulitanDetail"
                 android:layout_width="wrap_content"
@@ -103,19 +114,24 @@
                 android:textStyle="bold" />
         </RelativeLayout>
         <RelativeLayout
-            android:id="@+id/rlDeskripsiDetail"
+            android:id="@+id/rlDeskripsi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal">
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/kotak_oranye"
+            android:padding="20dp"
+            android:layout_margin="20dp"
+            android:visibility="gone">
             <TextView
                 android:id="@+id/tvJudulDeskripsi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
                 android:textStyle="bold"
                 android:textSize="20sp"
+                android:layout_centerHorizontal="true"
                 android:textColor="@color/white"
                 android:text="Deskripsi"/>
+
             <TextView
                 android:id="@+id/tvDeskripsiResep"
                 android:layout_height="wrap_content"
@@ -125,15 +141,22 @@
                 android:layout_centerHorizontal="true"
                 android:layout_below="@id/tvJudulDeskripsi"
                 android:lineSpacingMultiplier="1"
+                android:padding="20dp"
                 android:justificationMode="inter_word"
                 android:text="deskripsi"
                 android:textAlignment="center"
-                android:textColor="@android:color/white"  />
+                android:textColor="@color/white"  />
         </RelativeLayout>
+
         <RelativeLayout
-            android:id="@+id/rlDetailBahanResep"
+            android:id="@+id/rlBahan"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/kotak_oranye"
+            android:padding="10dp"
+            android:layout_margin="20dp"
+            android:visibility="gone">
             <TextView
                 android:id="@+id/tvJudulBahan"
                 android:layout_width="wrap_content"
@@ -149,13 +172,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tvJudulBahan"
+                android:padding="30dp"
                 tools:listitem="@layout/item_bahan_resep" />
+
         </RelativeLayout>
         <RelativeLayout
-            android:id="@+id/rlStepDetailBahan"
+            android:id="@+id/rlStep"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/kotak_oranye"
+            android:padding="10dp"
+            android:layout_margin="20dp"
+            android:visibility="gone">
             <TextView
                 android:id="@+id/tvJudulStep"
                 android:layout_width="wrap_content"
@@ -170,6 +199,7 @@
                 android:id="@+id/rvStepResep"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="30dp"
                 android:layout_below="@id/tvJudulStep"
                 tools:listitem="@layout/item_step_resep" />
         </RelativeLayout>

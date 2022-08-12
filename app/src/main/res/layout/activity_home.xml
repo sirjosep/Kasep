@@ -14,13 +14,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/oranye">
+
             <ImageView
                 android:id="@+id/ivLogoKasep"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
                 android:layout_alignParentLeft="true"
                 android:padding="20dp"
-                android:src="@drawable/logo_circle"/>
+                android:src="@drawable/logo_circle" />
             <TextView
                 android:id="@+id/tvTitleFragment"
                 android:layout_width="wrap_content"
@@ -63,12 +64,12 @@
     </com.google.android.material.bottomappbar.BottomAppBar>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabHome"
+        android:id="@+id/fabDetect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_baseline_search_24"
-        android:backgroundTint="@color/oranye"
+        android:src="@drawable/ic_baseline_photo_camera_24"
         android:contentDescription="Deteksi Bahan mu!"
+        app:tint="@color/white"
         app:backgroundTint="@color/oranye"
         app:layout_anchor="@id/bottomAppBar"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

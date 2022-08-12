@@ -14,7 +14,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.view.Gravity;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +31,10 @@ import com.josepvictorr.kasep.myrecipe.MyRecipeFragment;
 import com.josepvictorr.kasep.recipe.DetailRecipeActivity;
 import com.josepvictorr.kasep.recipe.RecipeFragment;
 import com.josepvictorr.kasep.user.ProfileFragment;
+import com.josepvictorr.kasep.util.sharedpref.PrefManager;
+import com.orhanobut.dialogplus.DialogPlus;
+import com.orhanobut.dialogplus.OnItemClickListener;
+import com.orhanobut.dialogplus.ViewHolder;
 
 import java.io.File;
 import java.io.IOException;
@@ -38,6 +46,8 @@ public class HomeActivity extends AppCompatActivity {
     private static final int REQUEST_CAPTURE_IMAGE = 100;
 
     String imageFilePath;
+    PrefManager prefManager;
+    Boolean checkBoxResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,13 +93,40 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
         bottomNavigationView.setSelectedItemId(R.id.home);
-        FloatingActionButton floatingActionButton = findViewById(R.id.fabHome);
-        floatingActionButton.setOnClickListener(view -> {
+        FloatingActionButton fabDetect = findViewById(R.id.fabDetect);
+        fabDetect.setOnClickListener(view -> {
+            prefManager = new PrefManager(this);
             if (ContextCompat.checkSelfPermission(this, "android.permission.CAMERA") != 0) {
                 ActivityCompat.requestPermissions(this,
                         new String[]{"android.permission.CAMERA", "android.permission.WRITE_EXTERNAL_STORAGE"},
                         0);
-            } else {
+            } else if(ContextCompat.checkSelfPermission(this, "android.permission.CAMERA") == 0 && !prefManager.getPetunjukCheck()) {
+                DialogPlus dialog = DialogPlus.newDialog(this)
+                        .setExpanded(true)
+                        .setContentHolder(new ViewHolder(R.layout.item_tutorial_dialog))
+                        .setGravity(Gravity.CENTER)
+                        .setCancelable(false)
+                        .create();
+                dialog.show();
+                CheckBox cbJanganTunjukkanLagi;
+                cbJanganTunjukkanLagi = (CheckBox) findViewById(R.id.cbJanganTunjukkanLagi);
+                checkBoxResult = false;
+                Button btnConfirm = findViewById(R.id.btnConfirm);
+                btnConfirm.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (cbJanganTunjukkanLagi.isChecked()) {
+                            prefManager.saveSPBoolean(PrefManager.SP_PetunjukCheck, true);
+                            dialog.dismiss();
+                            openCameraIntent();
+                        } else if (!cbJanganTunjukkanLagi.isChecked()){
+                            prefManager.saveSPBoolean(PrefManager.SP_PetunjukCheck, false);
+                            dialog.dismiss();
+                            openCameraIntent();
+                        }
+                    }
+                });
+            } else if (ContextCompat.checkSelfPermission(this, "android.permission.CAMERA") == 0 && prefManager.getPetunjukCheck()) {
                 openCameraIntent();
             }
         });
@@ -97,7 +134,6 @@ public class HomeActivity extends AppCompatActivity {
 
     private void openCameraIntent(){
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        Toast.makeText(this, "Foto bahan makanan yang ingin diketahui", Toast.LENGTH_SHORT).show();
         File photoFile = null;
         try {
             photoFile = createImagePath();
@@ -137,7 +173,7 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(detectImageIntent);
             }
             else if(resultCode == Activity.RESULT_CANCELED) {
-                // User Cancelled the action
+
             }
         }
     }

@@ -19,7 +19,7 @@ import com.josepvictorr.kasep.R;
 import com.josepvictorr.kasep.adapter.RecipeAdapter;
 import com.josepvictorr.kasep.item.ResponseResepItem;
 import com.josepvictorr.kasep.model.ResponseResep;
-import com.josepvictorr.kasep.util.apihelper.BaseApiService;
+import com.josepvictorr.kasep.util.apihelper.MasakApaApiService;
 import com.josepvictorr.kasep.util.apihelper.UtilsApi;
 
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ public class RecipeFragment extends Fragment {
     SwipeRefreshLayout refreshResep;
     ProgressDialog loading;
     RecipeAdapter recipeAdapter;
-    BaseApiService mApiService;
+    MasakApaApiService mApiService;
     Context mContext;
     RecyclerView rvRecipe;
 

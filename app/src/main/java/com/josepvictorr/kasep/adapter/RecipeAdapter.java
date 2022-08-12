@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -40,6 +41,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeHold
     @Override
     public void onBindViewHolder(@NonNull RecipeHolder holder, int position) {
         final ResponseResepItem responseResepItem = responseResepItems.get(position);
+
         Glide.with(mContext)
                 .load(responseResepItem.getThumb())
                 .into(holder.ivPreviewResep);

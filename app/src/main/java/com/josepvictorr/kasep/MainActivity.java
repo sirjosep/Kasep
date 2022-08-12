@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.josepvictorr.kasep.intro.IntroFragment;
+import com.josepvictorr.kasep.user.LoginActivity;
 import com.josepvictorr.kasep.util.sharedpref.PrefManager;
 
 public class MainActivity extends AppCompatActivity {
@@ -18,9 +19,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         prefManager = new PrefManager(this);
-        if (prefManager.isFirstTimeOpen()){
+        if (prefManager.isFirstTimeOpen() && !prefManager.getSP_LoginCheck()){
             getFragmentPage(new IntroFragment());
-        } else {
+        } else if (!prefManager.isFirstTimeOpen() && !prefManager.getSP_LoginCheck()){
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            finish();
+        } else if (!prefManager.isFirstTimeOpen() && prefManager.getSP_LoginCheck()) {
             startActivity(new Intent(MainActivity.this, HomeActivity.class));
             finish();
         }

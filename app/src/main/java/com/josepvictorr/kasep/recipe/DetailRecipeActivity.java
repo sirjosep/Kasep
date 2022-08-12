@@ -8,7 +8,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -16,7 +19,7 @@ import com.josepvictorr.kasep.R;
 import com.josepvictorr.kasep.adapter.BahanResepAdapter;
 import com.josepvictorr.kasep.adapter.StepResepAdapter;
 import com.josepvictorr.kasep.model.ResponseDetailResep;
-import com.josepvictorr.kasep.util.apihelper.BaseApiService;
+import com.josepvictorr.kasep.util.apihelper.MasakApaApiService;
 import com.josepvictorr.kasep.util.apihelper.UtilsApi;
 
 import retrofit2.Call;
@@ -26,7 +29,7 @@ import retrofit2.Response;
 public class DetailRecipeActivity extends AppCompatActivity {
     ProgressDialog loading;
     Context mContext;
-    BaseApiService mApiService;
+    MasakApaApiService mApiService;
     TextView tvJudulDetailResep;
     TextView tvWaktuMemasakDetail;
     TextView tvPorsiDetail;
@@ -81,11 +84,13 @@ public class DetailRecipeActivity extends AppCompatActivity {
         RecyclerView.LayoutManager mLayoutManger = new LinearLayoutManager(this);
         rvBahanResep.setLayoutManager(mLayoutManger);
         rvBahanResep.setItemAnimator(new DefaultItemAnimator());
+        rvBahanResep.setNestedScrollingEnabled(false);
 
         rvStepResep = findViewById(R.id.rvStepResep);
         RecyclerView.LayoutManager stepLayoutManger = new LinearLayoutManager(this);
         rvStepResep.setLayoutManager(stepLayoutManger);
         rvStepResep.setItemAnimator(new DefaultItemAnimator());
+        rvStepResep.setNestedScrollingEnabled(false);
         getDetailResult();
     }
 
@@ -96,6 +101,14 @@ public class DetailRecipeActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseDetailResep> call, Response<ResponseDetailResep> response) {
                     loading.dismiss();
+                    RelativeLayout rlTagsDetail, rlDeskripsi, rlBahan, rlStep;
+
+                    FrameLayout flThumbnailDetail = findViewById(R.id.flThumbnailDetail);
+                    rlTagsDetail = findViewById(R.id.rlTagsDetail);
+                    rlDeskripsi = findViewById(R.id.rlDeskripsi);
+                    rlBahan = findViewById(R.id.rlBahan);
+                    rlStep = findViewById(R.id.rlStep);
+
                     tvDeskripsiResep = findViewById(R.id.tvDeskripsiResep);
                     tvDeskripsiResep.setText(response.body().getResults().getDesc());
                     bahanResepAdapter = new BahanResepAdapter(response.body().getResults().getIngredient());
@@ -104,6 +117,12 @@ public class DetailRecipeActivity extends AppCompatActivity {
                     rvStepResep.setAdapter(stepResepAdapter);
                     stepResepAdapter.notifyDataSetChanged();
                     bahanResepAdapter.notifyDataSetChanged();
+
+                    flThumbnailDetail.setVisibility(View.VISIBLE);
+                    rlTagsDetail.setVisibility(View.VISIBLE);
+                    rlDeskripsi.setVisibility(View.VISIBLE);
+                    rlBahan.setVisibility(View.VISIBLE);
+                    rlStep.setVisibility(View.VISIBLE);
             }
 
             @Override

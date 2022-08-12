@@ -20,7 +20,6 @@ import java.util.List;
 public class IntroFragment extends Fragment {
     private ViewPager viewPager;
     private PagerAdapter pagerAdapter;
-    private MainActivity mainActivity;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -33,7 +32,6 @@ public class IntroFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view,Bundle savedInstanceState) {
-        mainActivity = (MainActivity) getActivity();
 
         List<Fragment> list = new ArrayList<>();
         list.add(new IntroFragmentSlide1());

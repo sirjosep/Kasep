@@ -4,73 +4,86 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_putih"
     tools:context=".detect.DetectActivity">
-    <ImageView
-        android:id="@+id/ivSampleBahanDeteksi"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_centerHorizontal="true"/>
+    <TextView
+        android:id="@+id/tvJudulHasilDeteksi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_centerHorizontal="true"
+        android:text="Hasil Deteksi"
+        android:textColor="@color/oranye"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+    <RelativeLayout
+        android:id="@+id/rlHasilDeteksi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@id/tvJudulHasilDeteksi"
+        android:background="@drawable/kotak_oranye"
+        android:padding="20dp"
+        android:layout_margin="20dp">
 
-    <Button
-        android:id="@+id/btnDetect"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/ivSampleBahanDeteksi"
-        android:layout_centerHorizontal="true"
-        android:text="Deteksi lagi" />
-    <TextView
-        android:id="@+id/tvHasilDeteksi1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:textColor="@color/white"
-        android:layout_below="@id/btnDetect"
-        android:layout_marginBottom="10dp"
-        android:textSize="16sp"
-        android:text="hasil"/>
-    <TextView
-        android:id="@+id/tvHasilDeteksi2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:textColor="@color/white"
-        android:layout_below="@id/tvHasilDeteksi1"
-        android:layout_marginBottom="10dp"
-        android:textSize="16sp"
-        android:text="hasil"/>
-    <TextView
-        android:id="@+id/tvHasilDeteksi3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:textColor="@color/white"
-        android:layout_below="@id/tvHasilDeteksi2"
-        android:layout_marginBottom="10dp"
-        android:textSize="16sp"
-        android:text="hasil"/>
-    <TextView
-        android:id="@+id/tvHasilDeteksi4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:textColor="@color/white"
-        android:layout_below="@id/tvHasilDeteksi3"
-        android:layout_marginBottom="10dp"
-        android:textSize="16sp"
-        android:text="hasil"/>
-    <TextView
-        android:id="@+id/tvHasilDeteksi5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:textColor="@color/white"
-        android:layout_below="@id/tvHasilDeteksi4"
-        android:textSize="16sp"
-        android:text="hasil"/>
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:id="@+id/rvHasilDeteksi"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_below="@id/btnDetect"-->
-<!--        tools:listitem="@layout/item_hasil_deteksi"/>-->
+        <ImageView
+            android:id="@+id/ivBahanDeteksi"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:id="@+id/tvHasilDeteksi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ivBahanDeteksi"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="10dp"
+            android:textColor="@color/white"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/tvWarning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvHasilDeteksi"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="10dp"
+            android:textColor="@color/merah"
+            android:textSize="12sp"
+            android:visibility="gone"/>
+
+        <LinearLayout
+            android:id="@+id/llButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvWarning"
+            android:gravity="center">
+            <Button
+                android:id="@+id/btnSimpan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvWarning"
+                android:backgroundTint="@color/white"
+                android:drawableLeft="@drawable/ic_baseline_save_24"
+                android:drawableTint="@color/oranye"
+                android:text="simpan"
+                android:textColor="@color/oranye" />
+
+            <Button
+                android:id="@+id/btnDeteksiLagi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvWarning"
+                android:layout_toRightOf="@id/btnSimpan"
+                android:layout_marginLeft="20dp"
+                android:backgroundTint="@color/white"
+                android:drawableLeft="@drawable/ic_baseline_photo_camera_24"
+                android:drawableTint="@color/oranye"
+                android:textColor="@color/oranye"
+                android:text="Deteksi" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
 </RelativeLayout>

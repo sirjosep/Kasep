@@ -11,5 +11,5 @@
         android:layout_centerHorizontal="true"
         android:text="deskripsi"
         android:textAlignment="center"
-        android:textColor="@android:color/white"  />
+        android:textColor="@color/oranye"  />
 </RelativeLayout>

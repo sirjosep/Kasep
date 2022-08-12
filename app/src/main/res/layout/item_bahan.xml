@@ -2,6 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:backgroundTint="@color/oranye"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_margin="10dp">
     <RelativeLayout
@@ -24,11 +25,12 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/ivBahan">
+
                 <TextView
                     android:id="@+id/tvNamaBahan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="19sp"
                     tools:text="Nama Bahan" />
                 <TextView
@@ -36,7 +38,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tvNamaBahan"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="19sp"
                     tools:text="Waktu Terdeteksi" />
             </RelativeLayout>
