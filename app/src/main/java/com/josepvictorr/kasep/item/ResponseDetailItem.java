@@ -3,7 +3,6 @@ package com.josepvictorr.kasep.item;
 import java.util.List;
 import com.google.gson.annotations.SerializedName;
 import com.josepvictorr.kasep.model.Author;
-import com.josepvictorr.kasep.model.NeedItemItem;
 
 public class ResponseDetailItem {
 

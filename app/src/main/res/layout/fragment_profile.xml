@@ -1,97 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/bg_putih"
     tools:context=".user.ProfileFragment">
     <RelativeLayout
-        android:layout_margin="30dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <RelativeLayout
-            android:id="@+id/rlUsername"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:id="@+id/ivProfilePicture"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@drawable/ic_baseline_person_24"/>
-            <TextView
-                android:id="@+id/tvUsername"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@id/ivProfilePicture"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:text="Username" />
-        </RelativeLayout>
-        <RelativeLayout
-            android:id="@+id/rlDetailProfile"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/rlUsername">
-            <TextView
-                android:id="@+id/tvNama"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:text="Nama" />
-            <TextView
-                android:id="@+id/tvEmail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tvNama"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:text="Email" />
-            <TextView
-                android:id="@+id/tvTanggalBergabung"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tvEmail"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:text="Tanggal Bergabung" />
-            <TextView
-                android:id="@+id/tvJmlBahan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tvTanggalBergabung"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:text="Jumlah Bahan Terdeteksi" />
-            <TextView
-                android:id="@+id/tvJmlResep"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tvJmlBahan"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:text="Jumlah Rekomendasi Resep yang dilakukan" />
-        </RelativeLayout>
-        <Button
-            android:id="@+id/btnEditProfile"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginHorizontal="40dp"
+        android:background="@drawable/kotak_oranye"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/tvNamaUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Edit Profile"
-            android:layout_below="@id/rlDetailProfile"/>
-        <Button
-            android:id="@+id/btnLogout"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:fontFamily="@font/mgbrushversion2_regular"
+            android:text="Nama"
+            android:textColor="@color/white"
+            android:textSize="48dp" />
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:backgroundTint="@color/merah"
-            android:layout_toRightOf="@id/btnEditProfile"
-            android:text="Logout"
-            android:layout_below="@id/rlDetailProfile"/>
+            android:layout_below="@id/tvNamaUser"
+            android:layout_centerHorizontal="true"
+            android:layout_toLeftOf="@id/tvEmailUser"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:text="Email : "
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/tvEmailUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvNamaUser"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:text="Email"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/tvTanggalBergabung"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_below="@id/tvEmailUser"
+            android:text="Tanggal Bergabung"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/tvJumlahBahanTerdeteksi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_below="@id/tvTanggalBergabung"
+            android:text="Jumlah Bahan Terdeteksi"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_below="@id/tvJumlahBahanTerdeteksi">
+            <Button
+                android:id="@+id/btnEditProfile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Edit Profile"/>
+            <Button
+                android:id="@+id/btnLogout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:backgroundTint="@color/merah"
+                android:text="Logout"/>
+        </LinearLayout>
     </RelativeLayout>
-</FrameLayout>
+
+</RelativeLayout>

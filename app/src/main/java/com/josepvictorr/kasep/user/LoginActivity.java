@@ -56,6 +56,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (!etLoginEmail.getText().toString().equals("") && !etLoginEmail.getText().toString().equals("")){
                     requestLogin();
                 } else {
+                    loading.dismiss();
                     Toast.makeText(getApplicationContext(), "Email atau password tidak boleh kosong", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -75,30 +76,36 @@ public class LoginActivity extends AppCompatActivity {
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        if (response.isSuccessful()){
                             loading.dismiss();
                             try {
                                 JSONObject getResult = new JSONObject(response.body().string());
-                                int id_user = getResult.getInt("id_user");
-                                Toast.makeText(mContext, "Login berhasil", Toast.LENGTH_SHORT).show();
-                                prefManager.saveSPBoolean(PrefManager.SP_LoginCheck, true);
-                                prefManager.saveSPInt(prefManager.SP_IdUser, id_user);
-                                startActivity(new Intent(LoginActivity.this, HomeActivity.class)
-                                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
-                                finish();
+                                    if (getResult.getString("pesan").equals("email tidak terdaftar atau tidak sesuai")){
+                                        Toast.makeText(mContext, getResult.getString("pesan"), Toast.LENGTH_SHORT).show();
+                                    } else if (getResult.getString("pesan").equals("password salah")) {
+                                        Toast.makeText(mContext, getResult.getString("pesan"), Toast.LENGTH_SHORT).show();
+                                    } else if (getResult.getString("pesan").equals("Berhasil login")){
+                                    Toast.makeText(mContext, "Login berhasil", Toast.LENGTH_SHORT).show();
+                                    int id_user = getResult.getInt("id_user");
+                                    prefManager.saveSPBoolean(prefManager.SP_LoginCheck, true);
+                                    prefManager.saveSPInt(prefManager.SP_IdUser, id_user);
+                                    startActivity(new Intent(LoginActivity.this, HomeActivity.class)
+                                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
+                                    finish();
+                                }
+
                             } catch (JSONException e) {
+                                loading.dismiss();
                                 e.printStackTrace();
                             } catch (IOException e) {
+                                loading.dismiss();
                                 e.printStackTrace();
                             }
-                        } else {
-                            loading.dismiss();
-                            Toast.makeText(mContext, response.message(), Toast.LENGTH_SHORT).show();
                         }
-                    }
+
 
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        loading.dismiss();
                         Toast.makeText(mContext, t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });

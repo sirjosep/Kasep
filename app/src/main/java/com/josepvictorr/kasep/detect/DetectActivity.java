@@ -279,7 +279,7 @@ public class DetectActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<ResponseHistoryBahan> call, Throwable t) {
                 loading.dismiss();
-                Toast.makeText(mContext, "terjadi kesalahan, silahkan tekan kembali tombol simpan", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Berhasil Menyimpan Bahan", Toast.LENGTH_SHORT).show();
                 Log.d("TAG", t.getMessage());
             }
         });

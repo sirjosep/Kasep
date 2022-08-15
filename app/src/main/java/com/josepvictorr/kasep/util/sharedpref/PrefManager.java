@@ -20,6 +20,12 @@ public class PrefManager {
 
     public static final String SP_PetunjukCheck = "spPetunjukCheck";
 
+    public static final String SP_Nama = "spNama";
+
+    public static final String SP_Email = "spEmail";
+
+    public static final String SP_TanggalBergabung = "spTanggalBergabung";
+
     public PrefManager(Context context){
         this.context = context;
         pref = context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
@@ -61,5 +67,17 @@ public class PrefManager {
 
     public int getSP_IdUser() {
         return pref.getInt(SP_IdUser, 0);
+    }
+
+    public String getSP_Email() {
+        return pref.getString(SP_Email, "");
+    }
+
+    public String getSP_Nama() {
+        return pref.getString(SP_Nama, "");
+    }
+
+    public String getSP_TanggalBergabung() {
+        return pref.getString(SP_TanggalBergabung, "");
     }
 }

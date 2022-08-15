@@ -31,6 +31,8 @@ import com.josepvictorr.kasep.util.apihelper.UtilsApi;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
+import java.io.*;
 import java.util.List;
 
 import retrofit2.Call;
@@ -76,6 +78,7 @@ public class RekomendasiActivity extends AppCompatActivity {
         rlBackgroundResult = findViewById(R.id.rlBackgroundResult);
         llMasukkanBahan = findViewById(R.id.llMasukkanBahan);
         etBahan = findViewById(R.id.etBahan);
+        bahanUser = new ArrayList<>();
         btnTambahMasukkanResep = findViewById(R.id.btnTambahMasukkanResep);
 
         btnTambahMasukkanResep.setOnClickListener(new View.OnClickListener() {
@@ -88,11 +91,11 @@ public class RekomendasiActivity extends AppCompatActivity {
         btnRecommendMe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loading = ProgressDialog.show(RekomendasiActivity.this, null, "Loading...", true, false);
                 mApiService.getResponseItem().enqueue(new Callback<ResponseResep>() {
                     @Override
                     public void onResponse(Call<ResponseResep> call, Response<ResponseResep> response) {
-                        recommendMe(response.body().getResults());
+                        bahanUser.clear();
+                        loading = ProgressDialog.show(RekomendasiActivity.this, null, "Loading...", true, false);
                         for (int i = 0; i < llMasukkanBahan.getChildCount(); i++){
                             if (llMasukkanBahan.getChildAt(i) instanceof LinearLayoutCompat) {
                                 LinearLayoutCompat ll = (LinearLayoutCompat) llMasukkanBahan.getChildAt(i);
@@ -100,12 +103,13 @@ public class RekomendasiActivity extends AppCompatActivity {
                                     if (ll.getChildAt(j) instanceof EditText){
                                         EditText et = (EditText) ll.getChildAt(j);
                                         if (et.getId() == R.id.etBahan) {
-                                            Toast.makeText(mContext, ""+et.getText().toString(), Toast.LENGTH_SHORT).show();
+                                            bahanUser.add(et.getText().toString());
                                         }
                                     }
                                 }
                             }
                         }
+                        recommendMe(response.body().getResults());
                     }
 
                     @Override
@@ -147,6 +151,7 @@ public class RekomendasiActivity extends AppCompatActivity {
         if (results != null && results.size() > 1) {
             responseDetailItems.clear();
             //manggil tiap key resep
+            List <String> listKey = new ArrayList<>();
             for (ResponseResepItem responseResepItem : results) {
                 mApiService.getResponseDetailItem(responseResepItem.getKey()).enqueue(new Callback<ResponseDetailResep>() {
                     @Override
@@ -156,18 +161,20 @@ public class RekomendasiActivity extends AppCompatActivity {
                             ResponseDetailItem responseDetailItem = responseDetailResep.getResults();
                             if (responseDetailItem != null) {
                                 // dapetin detail resep
+                                listKey.add(responseResepItem.getKey());
                                 responseDetailItems.add(responseDetailItem);
                             }
                         }
                         // jika semua detail sudah diambil
                         if (results.size() == responseDetailItems.size()) {
-                            String test = "bawang merah";
+                            //sample
+//                          String test = "bawang merah";
+//                          List<String> bahanUser = Arrays.asList("bawang merah", "bawang putih", "cabai merah", "ayam");
 
-                            List<String> percobaan = Arrays.asList("bawang merah", "bawang putih", "cabai merah", "ayam");
                             // insialisasi integer untuk perhitungan
                             int hasilBahanSama = 0;
                             int hasilBahanTidakSama = 0;
-                            int hasilBahanTidakSamaDariTest = 0;
+                            int hasilBahanTidakSamaDariUser = 0;
                             float hasilJaccardSimilarityResep;
 
                             // list buat nampung daftar bahan dari suatu resep dan nama bahan
@@ -184,64 +191,75 @@ public class RekomendasiActivity extends AppCompatActivity {
 
                             // menampung hasil perhitungan jaccard
                             List<Float> listHasilJaccard = new ArrayList<>();
+                            List<Float> listHasilJaccardSorted = new ArrayList<>();
 
                             // menampung bahan hasil rekomendasi
                             List<String> bahanHasilRekomendasi;
 
                             // dapetin bahan resep
-                            for (int i = 0; i <= 9; i++){
-                                bahanResep = responseDetailItems.get(i).getIngredient();
-                                for (String bahanResepCheck : bahanResep){
-                                    // cek true false
-                                    for (int j = 0; j <= percobaan.size() - 1; j++){
-                                        //jika bahan yang dibanding dengan user belum ada yang sama
-                                        if (bahanResepCheck.contains(percobaan.get(j)) && hasilTrue.size() == 0
-                                                && cekNamaSudahTrue.size() == 0){
+                            if (bahanUser.size() == 1) {
+                                hasilTrue.clear();
+                                for (int i = 0; i <= 9; i++){
+                                    bahanResep = responseDetailItems.get(i).getIngredient();
+                                    for (String bahanResepCheck : bahanResep){
+                                        // cek true false
+                                        if (bahanResepCheck.toLowerCase().contains(bahanUser.get(0).toLowerCase())) {
                                             hasilTrue.add(true);
-                                            cekNamaSudahTrue.add(percobaan.get(j));
-                                        }
-                                        //jika bahan user yang dibandingin sudah ada yang sama
-                                        else if(bahanResepCheck.contains(percobaan.get(j))
-                                                && hasilTrue.size() > 0 && hasilTrue.size() <= percobaan.size()
-                                                && cekNamaSudahTrue.size() > 0 && cekNamaSudahTrue.size() <= percobaan.size()
-                                                && !cekNamaSudahTrue.contains(percobaan.get(j))) {
-                                            hasilTrue.add(true);
-                                            cekNamaSudahTrue.add(percobaan.get(j));
-                                        }
-                                        //jika bahan user yang terakhir tidak memiliki kesamaan
-                                        else if (j == percobaan.size() - 1 && !bahanResepCheck.contains(percobaan.get(j))
-                                                && !cekNamaSudahTrue.contains(percobaan.get(j))) {
-                                            hasilFalse.add(false);
-                                        } else if (j == percobaan.size() - 1 && !bahanResepCheck.contains(percobaan.get(j))
-                                                && cekNamaSudahTrue.contains(percobaan.get(j))) {
-                                            hasilFalse.add(false);
                                         }
                                     }
-                                }
-                                // hitung hasil true false
 
-                                //jika hasiltrue lebih banyak dari bahan yang diinput user
-                                if (hasilTrue.size() > percobaan.size()) {
-                                    hasilBahanSama = percobaan.size();
-                                } else if (hasilTrue.size() <= percobaan.size()) {
                                     hasilBahanSama = hasilTrue.size();
+                                    hasilBahanTidakSama = bahanResep.size() - hasilBahanSama;
+                                    hasilBahanTidakSamaDariUser = bahanUser.size() - hasilBahanSama;
+                                    hasilJaccardSimilarityResep = Math.round(hasilBahanSama * 100 / (hasilBahanSama + hasilBahanTidakSama + hasilBahanTidakSamaDariUser));
+
+                                    // masukkan hasil perhitungan ke penampungan
+                                    listHasilJaccard.add(hasilJaccardSimilarityResep);
+                                    listHasilJaccardSorted.add(hasilJaccardSimilarityResep);
+                                    jumlahTrue.add(hasilBahanSama);
+                                    jumlahFalse.add(hasilBahanTidakSama);
+
+                                    // clear penampungan sementara untuk perulangan berikutnya
+                                    hasilTrue.clear();
+                                    hasilFalse.clear();
                                 }
-                                hasilBahanTidakSama = hasilFalse.size();
-                                hasilBahanTidakSamaDariTest = percobaan.size() - hasilBahanSama;
-                                hasilJaccardSimilarityResep = Math.round(hasilBahanSama * 100 / (hasilBahanSama + hasilBahanTidakSama + hasilBahanTidakSamaDariTest));
+                            } else if (bahanUser.size() > 1) {
+                                for (int i = 0; i <= 9; i++){
+                                    bahanResep = responseDetailItems.get(i).getIngredient();
+                                    for (String bahanResepCheck : bahanResep){
+                                        // cek true false
+                                        for (int j = 0; j <= bahanUser.size() - 1; j++){
+                                            if (bahanResepCheck.toLowerCase().contains(bahanUser.get(j).toLowerCase())) {
+                                                hasilTrue.add(true);
+                                            }
+                                        }
+                                    }
+                                    hasilBahanSama = hasilTrue.size();
+                                    hasilBahanTidakSama = bahanResep.size() - hasilBahanSama;
+                                    hasilBahanTidakSamaDariUser = bahanUser.size() - hasilBahanSama;
+                                    hasilJaccardSimilarityResep = Math.round(hasilBahanSama * 100 / (hasilBahanSama + hasilBahanTidakSama + hasilBahanTidakSamaDariUser));
 
-                                // masukkan hasil perhitungan ke penampungan
-                                listHasilJaccard.add(hasilJaccardSimilarityResep);
-                                jumlahTrue.add(hasilBahanSama);
-                                jumlahFalse.add(hasilBahanTidakSama);
+                                    // masukkan hasil perhitungan ke penampungan
+                                    listHasilJaccard.add(hasilJaccardSimilarityResep);
+                                    listHasilJaccardSorted.add(hasilJaccardSimilarityResep);
+                                    jumlahTrue.add(hasilBahanSama);
+                                    jumlahFalse.add(hasilBahanTidakSama);
 
-                                // clear penampungan sementara untuk perulangan berikutnya
-                                hasilTrue.clear();
-                                hasilFalse.clear();
+                                    // clear penampungan sementara untuk perulangan berikutnya
+                                    hasilTrue.clear();
+                                    hasilFalse.clear();
+                                }
                             }
 
                             // cari nilai tertinggi dan posisi resepnya di list untuk direkomendasikan
                             Float nilaiJaccardTertinggi = Collections.max(listHasilJaccard);
+                            Collections.sort(listHasilJaccardSorted);
+                            List <Integer> positionSortedList = new ArrayList<>();
+
+                            for (int i = 0; i <= listHasilJaccardSorted.size() - 1; i++){
+                                positionSortedList.add(listHasilJaccard.indexOf(listHasilJaccardSorted.get(i)));
+                            }
+
                             position = listHasilJaccard.indexOf(nilaiJaccardTertinggi);
 
                             String namaResepRekomendasi = responseDetailItems.get(position).getTitle();
@@ -268,5 +286,4 @@ public class RekomendasiActivity extends AppCompatActivity {
             }
         }
     }
-
 }

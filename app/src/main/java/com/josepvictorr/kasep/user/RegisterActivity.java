@@ -15,6 +15,11 @@ import com.josepvictorr.kasep.R;
 import com.josepvictorr.kasep.util.apihelper.KasepApiService;
 import com.josepvictorr.kasep.util.apihelper.UtilsApi;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -49,6 +54,11 @@ public class RegisterActivity extends AppCompatActivity {
                 if (!etPwdRegister.getText().toString().equals(etPwdConfirmRegister.getText().toString())){
                     loading.dismiss();
                     Toast.makeText(getApplicationContext(), "Password tidak sesuai", Toast.LENGTH_SHORT).show();
+                } else if (etRegisterNama.getText().toString().equals("")
+                        || etRegisterEmail.getText().toString().equals("")
+                        || etPwdRegister.getText().toString().equals("")
+                        || etPwdConfirmRegister.getText().toString().equals("")){
+                    Toast.makeText(getApplicationContext(), "pastikan semua field telah terisi", Toast.LENGTH_SHORT).show();
                 } else {
                     requestRegister();
                 }
@@ -62,18 +72,26 @@ public class RegisterActivity extends AppCompatActivity {
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        if (response.isSuccessful()){
-                            loading.dismiss();
-                            Toast.makeText(mContext, "Register berhasil, silahkan login", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(mContext, LoginActivity.class));
-                        } else {
-                            loading.dismiss();
-                            Toast.makeText(mContext, response.message(), Toast.LENGTH_SHORT).show();
+                        try {
+                            JSONObject getResult = new JSONObject(response.body().string());
+                            if (!getResult.getString("pesan").equals("email sudah terdaftar")){
+                                loading.dismiss();
+                                Toast.makeText(mContext, "Register berhasil, silahkan login", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(mContext, LoginActivity.class));
+                            } else {
+                                loading.dismiss();
+                                Toast.makeText(mContext, getResult.getString("pesan"), Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        loading.dismiss();
                         Toast.makeText(mContext, t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });

@@ -1,4 +1,4 @@
-package com.josepvictorr.kasep.model;
+package com.josepvictorr.kasep.item;
 
 import com.google.gson.annotations.SerializedName;
 

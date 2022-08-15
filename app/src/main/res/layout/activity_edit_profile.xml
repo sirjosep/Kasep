@@ -1,9 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_putih"
     tools:context=".user.EditProfileActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginHorizontal="40dp"
+        android:background="@drawable/kotak_oranye"
+        android:padding="20dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/ivLogoKasep"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardCornerRadius="40dp"
+            app:cardElevation="5dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/logo_circle" />
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/tvTitleRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@id/ivLogoKasep"
+            android:fontFamily="@font/mgbrushversion2_regular"
+            android:text="Edit Profile"
+            android:textColor="@color/white"
+            android:textSize="48dp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/nama_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvTitleRegister"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="30dp"
+            android:textColorHint="@color/white"
+            app:boxBackgroundColor="@android:color/transparent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etEditNama"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:hint="Nama" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/email_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/nama_layout"
+            android:layout_marginHorizontal="20dp"
+            android:textColorHint="@color/white"
+            app:boxBackgroundColor="@android:color/transparent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etEditEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:hint="Email" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/pwd_register_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/email_layout"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="10dp"
+            android:textColorHint="@color/white"
+            app:boxBackgroundColor="@android:color/white"
+            app:passwordToggleEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPwdEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:hint="Password"
+                android:inputType="textPassword" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/pwd_confirm_register_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/pwd_register_password"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="10dp"
+            android:textColorHint="@color/white"
+            app:boxBackgroundColor="@android:color/white"
+            app:passwordToggleEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPwdConfirmEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:hint="Confirm Password"
+                android:inputType="textPassword" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btnEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/pwd_confirm_register_password"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:text="Simpan" />
+    </RelativeLayout>
+</RelativeLayout>
