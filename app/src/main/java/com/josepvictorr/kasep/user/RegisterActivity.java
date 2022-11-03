@@ -49,9 +49,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                loading = ProgressDialog.show(mContext, null, "Harap Tunggu...", true, false);
-                if (!etPwdRegister.getText().toString().equals(etPwdConfirmRegister.getText().toString())){
+            public void onClick(View view) { if (!etPwdRegister.getText().toString().equals(etPwdConfirmRegister.getText().toString())){
                     loading.dismiss();
                     Toast.makeText(getApplicationContext(), "Password tidak sesuai", Toast.LENGTH_SHORT).show();
                 } else if (etRegisterNama.getText().toString().equals("")
@@ -67,24 +65,26 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void requestRegister() {
+        loading = ProgressDialog.show(mContext, null, "Harap Tunggu...", true, false);
         mKasepApiService.registerRequest(etRegisterNama.getText().toString(),
                 etRegisterEmail.getText().toString().toLowerCase(), etPwdRegister.getText().toString())
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        loading.dismiss();
                         try {
                             JSONObject getResult = new JSONObject(response.body().string());
-                            if (!getResult.getString("pesan").equals("email sudah terdaftar")){
-                                loading.dismiss();
+                            if (getResult.getString("pesan").equals("email sudah terdaftar")){
+                                Toast.makeText(mContext, getResult.getString("pesan"), Toast.LENGTH_SHORT).show();
+                            } else {
                                 Toast.makeText(mContext, "Register berhasil, silahkan login", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(mContext, LoginActivity.class));
-                            } else {
-                                loading.dismiss();
-                                Toast.makeText(mContext, getResult.getString("pesan"), Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
+                            Toast.makeText(mContext, e.toString(), Toast.LENGTH_SHORT).show();
                             e.printStackTrace();
                         } catch (IOException e) {
+                            Toast.makeText(mContext, e.toString(), Toast.LENGTH_SHORT).show();
                             e.printStackTrace();
                         }
                     }

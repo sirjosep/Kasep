@@ -76,14 +76,15 @@ public class LoginActivity extends AppCompatActivity {
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                            loading.dismiss();
+                        loading.dismiss();
+                        if (response.isSuccessful()) {
                             try {
                                 JSONObject getResult = new JSONObject(response.body().string());
-                                    if (getResult.getString("pesan").equals("email tidak terdaftar atau tidak sesuai")){
-                                        Toast.makeText(mContext, getResult.getString("pesan"), Toast.LENGTH_SHORT).show();
-                                    } else if (getResult.getString("pesan").equals("password salah")) {
-                                        Toast.makeText(mContext, getResult.getString("pesan"), Toast.LENGTH_SHORT).show();
-                                    } else if (getResult.getString("pesan").equals("Berhasil login")){
+                                if (getResult.getString("pesan").equals("email tidak terdaftar atau tidak sesuai")) {
+                                    Toast.makeText(mContext, getResult.getString("pesan"), Toast.LENGTH_SHORT).show();
+                                } else if (getResult.getString("pesan").equals("password salah")) {
+                                    Toast.makeText(mContext, getResult.getString("pesan"), Toast.LENGTH_SHORT).show();
+                                } else if (getResult.getString("pesan").equals("Berhasil login")) {
                                     Toast.makeText(mContext, "Login berhasil", Toast.LENGTH_SHORT).show();
                                     int id_user = getResult.getInt("id_user");
                                     prefManager.saveSPBoolean(prefManager.SP_LoginCheck, true);
@@ -92,7 +93,6 @@ public class LoginActivity extends AppCompatActivity {
                                             .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
                                     finish();
                                 }
-
                             } catch (JSONException e) {
                                 loading.dismiss();
                                 e.printStackTrace();
@@ -101,7 +101,7 @@ public class LoginActivity extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                         }
-
+                    }
 
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {

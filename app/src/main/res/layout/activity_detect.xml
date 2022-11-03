@@ -6,22 +6,26 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_putih"
     tools:context=".detect.DetectActivity">
-    <TextView
-        android:id="@+id/tvJudulHasilDeteksi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_centerHorizontal="true"
-        android:text="Hasil Deteksi"
-        android:textColor="@color/oranye"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+    <RelativeLayout
+        android:id="@+id/rlJudulHasilDeteksi"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:background="@color/oranye">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/mgbrushversion2_regular"
+            android:textSize="48sp"
+            android:textColor="@color/white"
+            android:text="Hasil Deteksi"/>
+    </RelativeLayout>
     <RelativeLayout
         android:id="@+id/rlHasilDeteksi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_below="@id/tvJudulHasilDeteksi"
+        android:layout_below="@id/rlJudulHasilDeteksi"
         android:background="@drawable/kotak_oranye"
         android:padding="20dp"
         android:layout_margin="20dp">
@@ -43,10 +47,20 @@
             android:textSize="16sp"/>
 
         <TextView
-            android:id="@+id/tvWarning"
+            android:id="@+id/tvOtherHasilDeteksi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tvHasilDeteksi"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="10dp"
+            android:textColor="@color/white"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:id="@+id/tvWarning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvOtherHasilDeteksi"
             android:layout_centerHorizontal="true"
             android:layout_margin="10dp"
             android:textColor="@color/merah"
@@ -83,7 +97,14 @@
                 android:textColor="@color/oranye"
                 android:text="Deteksi" />
         </LinearLayout>
-
+        <Button
+            android:id="@+id/btnRekomendasiHasilDeteksi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/llButton"
+            android:layout_centerHorizontal="true"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/oranye"
+            android:text="Cari Resep" />
     </RelativeLayout>
-
 </RelativeLayout>

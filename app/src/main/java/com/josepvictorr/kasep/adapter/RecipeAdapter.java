@@ -28,7 +28,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeHold
 
     public RecipeAdapter(Context context, List<ResponseResepItem> recipeList){
         this.mContext = context;
-        responseResepItems = recipeList;
+        this.responseResepItems = recipeList;
     }
 
     @NonNull
@@ -48,18 +48,18 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeHold
         holder.tvNamaResep.setText(responseResepItem.getTitle());
         holder.tvWaktuMemasak.setText(responseResepItem.getTimes());
         holder.tvPorsi.setText(responseResepItem.getPortion());
-        String cekKesulitan = responseResepItem.getDificulty();
+        String cekKesulitan = responseResepItem.getDifficulty();
         if (cekKesulitan.equals("Mudah")){
             holder.tvKesulitan.setBackground(mContext.getResources().getDrawable(R.drawable.hijau_mudah));
-            holder.tvKesulitan.setText(responseResepItem.getDificulty());
+            holder.tvKesulitan.setText(responseResepItem.getDifficulty());
         } else if (cekKesulitan.equals("Cukup Rumit")){
             holder.tvKesulitan.setBackground(mContext.getResources().getDrawable(R.drawable.kuning_cukup_rumit));
-            holder.tvKesulitan.setText(responseResepItem.getDificulty());
+            holder.tvKesulitan.setText(responseResepItem.getDifficulty());
         } else if (cekKesulitan.equals("Level Chef Panji")){
             holder.tvKesulitan.setBackground(mContext.getResources().getDrawable(R.drawable.merah_chef_panji));
-            holder.tvKesulitan.setText(responseResepItem.getDificulty());
+            holder.tvKesulitan.setText(responseResepItem.getDifficulty());
         } else {
-            holder.tvKesulitan.setText(responseResepItem.getDificulty());
+            holder.tvKesulitan.setText(responseResepItem.getDifficulty());
         }
 
         holder.itemView.setOnClickListener(view -> {
@@ -69,7 +69,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeHold
             detailResepIntent.putExtra("thumbnail", responseResepItem.getThumb());
             detailResepIntent.putExtra("waktu_memasak", responseResepItem.getTimes());
             detailResepIntent.putExtra("porsi", responseResepItem.getPortion());
-            detailResepIntent.putExtra("kesulitan", responseResepItem.getDificulty());
+            detailResepIntent.putExtra("kesulitan", responseResepItem.getDifficulty());
             mContext.startActivity(detailResepIntent);
         });
     }

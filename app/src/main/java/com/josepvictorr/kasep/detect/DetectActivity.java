@@ -1,10 +1,11 @@
 package com.josepvictorr.kasep.detect;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -49,21 +50,25 @@ import com.josepvictorr.kasep.util.apihelper.KasepApiService;
 import com.josepvictorr.kasep.util.apihelper.UtilsApi;
 import com.josepvictorr.kasep.util.sharedpref.PrefManager;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 public class DetectActivity extends AppCompatActivity {
     ImageView ivBahanDeteksi;
@@ -76,12 +81,15 @@ public class DetectActivity extends AppCompatActivity {
 
     static final String MODEL_ID = "food-item-recognition";
 
-    Button btnSimpan, btnDeteksiLagi;
-    String hasil, hasilTranslated, imageFilePath;
-    TextView tvHasilDeteksi, tvWarning;
+    Button btnSimpan, btnDeteksiLagi, btnRekomendasiHasilDeteksi;
+    String hasil, hasilTranslated, imageFilePath, translated;
+    TextView tvHasilDeteksi, tvWarning, tvOtherHasilDeteksi;
     KasepApiService mKasepApiService;
     PrefManager prefManager;
     Context mContext;
+    JSONObject jResult;
+    JSONArray jArray;
+    List<String> hasilValue, hasilDeteksi, hasilDeteksiFull, hasilDeteksiTranslated;
     private static final int REQUEST_CAPTURE_IMAGE = 100;
 
     @Override
@@ -93,6 +101,7 @@ public class DetectActivity extends AppCompatActivity {
         mKasepApiService = UtilsApi.getKasepApiService();
         prefManager = new PrefManager(this);
         mContext = this;
+
         int SDK_INT = android.os.Build.VERSION.SDK_INT;
         if (SDK_INT > 8)
         {
@@ -101,9 +110,19 @@ public class DetectActivity extends AppCompatActivity {
             StrictMode.setThreadPolicy(policy);
 
         }
+
+        jResult = new JSONObject();// main object
+        jArray = new JSONArray();
+
+        hasilDeteksi = new ArrayList<>();
+        hasilValue = new ArrayList<>();
+        hasilDeteksiFull = new ArrayList<>();
+        hasilDeteksiTranslated = new ArrayList<>();
+
         ivBahanDeteksi = findViewById(R.id.ivBahanDeteksi);
         tvHasilDeteksi = findViewById(R.id.tvHasilDeteksi);
         tvWarning = findViewById(R.id.tvWarning);
+        tvOtherHasilDeteksi = findViewById(R.id.tvOtherHasilDeteksi);
         requestPostImage();
         Glide.with(this).load(getIntent().getStringExtra("path")).into(ivBahanDeteksi);
 
@@ -122,6 +141,45 @@ public class DetectActivity extends AppCompatActivity {
                 deteksiLagi();
             }
         });
+
+        btnRekomendasiHasilDeteksi = findViewById(R.id.btnRekomendasiHasilDeteksi);
+        btnRekomendasiHasilDeteksi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                rekomendasiDariHasilDeteksi();
+            }
+        });
+    }
+
+    private void rekomendasiDariHasilDeteksi() {
+        hasilDeteksiTranslated.clear();
+        for (int i = 0; i < hasilDeteksi.size(); i++){
+            englishIndonesiaTranslator.translate(hasilDeteksi.get(i))
+                    .addOnSuccessListener(new OnSuccessListener<String>() {
+                        @Override
+                        public void onSuccess(String s) {
+                            hasilDeteksiTranslated.add(s);
+                        }
+                    });
+        }
+        AlertDialog.Builder alert = new AlertDialog.Builder(mContext);
+        alert.setTitle("Confirm");
+        alert.setMessage("Cari resep?");
+        alert.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                Intent rekomendasiDariBahanItent = new Intent(mContext, RekomendasiActivity.class);
+                rekomendasiDariBahanItent.putStringArrayListExtra("hasilDeteksi", (ArrayList<String>) hasilDeteksiTranslated);
+                rekomendasiDariBahanItent.putStringArrayListExtra("hasilValue", (ArrayList<String>) hasilValue);
+                startActivity(rekomendasiDariBahanItent);
+            }
+        });
+        alert.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                // close dialog
+                dialog.cancel();
+            }
+        });
+        alert.show();
     }
 
     private void deteksiLagi() {
@@ -177,7 +235,7 @@ public class DetectActivity extends AppCompatActivity {
             @Override
             public void run() {
                 V2Grpc.V2BlockingStub stub = V2Grpc.newBlockingStub(ClarifaiChannel.INSTANCE.getJsonChannel())
-                        .withCallCredentials(new ClarifaiCallCredentials("cefe649a35374b3190cb7968272afe99"));
+                        .withCallCredentials(new ClarifaiCallCredentials("111556f4fff748c9b77edea2aa4144c9"));
 
                 MultiOutputResponse postModelOutputsResponse = null;
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
@@ -207,19 +265,27 @@ public class DetectActivity extends AppCompatActivity {
                 }
                 Output output = postModelOutputsResponse.getOutputs(0);
 
+                for (int i = 0; i < output.getData().getConceptsList().size(); i ++){
+                    float hitungValue = (output.getData().getConcepts(i).getValue() * 10000) / 100;
+                    if (hitungValue > 0.0){
+                        System.out.println(hitungValue);
+                        hasilDeteksi.add(output.getData().getConcepts(i).getName());
+                        hasilValue.add(String.format("%.0f%%",
+                                (output.getData().getConcepts(i).getValue() * 10000) / 100 ));
+                    }
+                }
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        loading.dismiss();
                         RelativeLayout rlHasilDeteksi = findViewById(R.id.rlHasilDeteksi);
                         rlHasilDeteksi.setVisibility(View.VISIBLE);
-                        hasil = output.getData().getConcepts(0).getName();
+                        hasil = hasilDeteksi.get(0);
                         englishIndonesiaTranslator.translate(hasil)
                                 .addOnSuccessListener(new OnSuccessListener<String>() {
                                     @Override
                                     public void onSuccess(String successTranslate) {
                                         hasilTranslated = successTranslate;
-                                        tvHasilDeteksi.setText(successTranslate);
+                                        tvHasilDeteksi.setText("Nilai nama bahan terdeteksi tertinggi : \n" + successTranslate + "(" + hasilValue.get(0) + ")");
                                         if (output.getData().getConcepts(0).getValue() < 0.90){
                                             tvWarning.setText("*Hasil yang ditampilkan dapat kemungkinan tidak sesuai, " +
                                                     "hal ini dapat disebabkan karena beberapa hal berikut : " + getText(R.string.penyebab) +
@@ -235,13 +301,18 @@ public class DetectActivity extends AppCompatActivity {
                                         tvHasilDeteksi.setText(e.toString());
                                     }
                                 });
-
-                        tvHasilDeteksi.setTextColor(getResources().getColor(R.color.black));
-                        Log.d("CLARIFAI","Predicted concepts:");
-                        for (Concept concept : output.getData().getConceptsList()) {
-                            System.out.printf("%s %.2f%n", concept.getName(), concept.getValue());
-                            Log.d("CLARIFAI",concept.getName() + " " + concept.getValue());
+                        for (int i = 0; i < hasilDeteksi.size(); i++){
+                            hasilDeteksiFull.add(hasilDeteksi.get(i) + " (" + hasilValue.get(i) + ")");
                         }
+                        englishIndonesiaTranslator.translate(hasilDeteksiFull.toString())
+                                .addOnSuccessListener(new OnSuccessListener<String>() {
+                                    @Override
+                                    public void onSuccess(String s) {
+                                        tvOtherHasilDeteksi.setText("Beberapa hasil deteksi lain yang didapatkan : " + s);
+                                    }
+                                });
+                        tvHasilDeteksi.setTextColor(getResources().getColor(R.color.black));
+                        loading.dismiss();
                     }
                 });
             }
@@ -251,6 +322,22 @@ public class DetectActivity extends AppCompatActivity {
 
     private void uploadFile() {
         loading = ProgressDialog.show(this, null, "Menyimpan...", true, false);
+        JSONObject jGroup = new JSONObject();
+        try {
+            jGroup.put("hasil_utama", tvHasilDeteksi.getText());
+            jGroup.put("hasil_lain", hasilDeteksi.toString());
+            jArray.put(jGroup);
+
+            // /itemDetail Name is JsonArray Name
+            jResult.put("result", jArray);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            Log.d("result", jResult.toString(4));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         //pass it like this
         File file = new File(getIntent().getStringExtra("path"));
@@ -265,10 +352,15 @@ public class DetectActivity extends AppCompatActivity {
         RequestBody id_user =
                 RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(prefManager.getSP_IdUser()));
 
-        RequestBody nama_bahan =
-                RequestBody.create(MediaType.parse("multipart/form-data"), tvHasilDeteksi.getText().toString());
+        RequestBody daftar_hasil =
+                null;
+        try {
+            daftar_hasil = RequestBody.create(MediaType.parse("multipart/form-data"), jResult.toString(4));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
-        Call<ResponseHistoryBahan> call = mKasepApiService.simpanGambar(id_user, foto_bahan, nama_bahan);
+        Call<ResponseHistoryBahan> call = mKasepApiService.simpanGambar(id_user, foto_bahan, daftar_hasil);
         call.enqueue(new Callback<ResponseHistoryBahan>() {
             @Override
             public void onResponse(Call<ResponseHistoryBahan> call, Response<ResponseHistoryBahan> response) {

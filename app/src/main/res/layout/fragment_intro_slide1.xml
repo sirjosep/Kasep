@@ -56,6 +56,17 @@
                 android:textAlignment="center"
                 android:textColor="@color/biru_muda"
                 android:textSize="24dp" />
+            <TextView
+                android:id="@+id/tvSlide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="40dp"
+                android:layout_below="@id/tvDescApp"
+                android:textColor="@color/biru_muda"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                tools:text="Slide to continue >" />
         </RelativeLayout>
     </FrameLayout>
 </RelativeLayout>

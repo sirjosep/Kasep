@@ -52,12 +52,17 @@ public class EditProfileActivity extends AppCompatActivity {
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                simpanEdit();
+                if (!etEditEmail.getText().equals("") && !etEditNama.getText().equals("") &&
+                        !etPwdEdit.getText().equals("") && !etPwdConfirmEdit.getText().equals("")){
+                    requestSimpanEdit();
+                } else {
+                    Toast.makeText(mContext, "Pastikan semua field terisi", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
 
-    private void simpanEdit() {
+    private void requestSimpanEdit() {
         loading = ProgressDialog.show(mContext, null, "Merubah Profile...", true, true);
         mKasepApiService.editProfile(prefManager.getSP_IdUser(), etEditNama.getText().toString(),
                 etEditEmail.getText().toString(), etPwdEdit.getText().toString()).enqueue(new Callback<ResponseBody>() {

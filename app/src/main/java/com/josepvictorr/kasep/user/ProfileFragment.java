@@ -51,7 +51,7 @@ public class ProfileFragment extends Fragment {
 
         mKasepApiService = UtilsApi.getKasepApiService();
 
-        showProfile();
+        requestTampilProfile();
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,7 +76,7 @@ public class ProfileFragment extends Fragment {
         return rootView;
     }
 
-    private void showProfile() {
+    private void requestTampilProfile() {
         loading = ProgressDialog.show(getContext(), null, "Menampilkan Profile...", true, true);
         mKasepApiService.tampilProfile(prefManager.getSP_IdUser()).enqueue(new Callback<ResponseProfile>() {
             @Override

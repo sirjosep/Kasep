@@ -1,9 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_putih"
     tools:context=".myrecipe.HasilRekomendasiActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:id="@+id/rl"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:background="@color/oranye">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/mgbrushversion2_regular"
+                android:textSize="48sp"
+                android:textColor="@color/white"
+                android:text="Detail History"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rlDetailBackgroundResult"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_below="@id/rl"
+            android:background="@drawable/kotak_oranye"
+            android:padding="20dp">
+            <ImageView
+                android:id="@+id/ivDetailHasilRekomendasi"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"/>
+            <TextView
+                android:id="@+id/tvDetailJudulRekomendasi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ivDetailHasilRekomendasi"
+                android:layout_marginHorizontal="10dp"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/white"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/tvDetailJudulJaccard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/tvDetailJudulRekomendasi"
+                android:textColor="@color/white"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvDetailBahanResepRekomendasi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvDetailJudulJaccard"
+                tools:listitem="@layout/item_bahan_resep" />
+            <Button
+                android:id="@+id/btnLihatDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="Lihat detail resep"
+                android:layout_below="@id/rvDetailBahanResepRekomendasi"/>
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rlDetailBackgroundOther"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/kotak_oranye"
+            android:layout_margin="20dp"
+            android:padding="20dp"
+            android:layout_below="@id/rlDetailBackgroundResult">
+            <TextView
+                android:id="@+id/tvDetailOtherRecommendation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="10dp"
+                android:text="Beberapa hasil lainnya :"
+                android:textSize="24sp"
+                android:textColor="@color/white"/>
+            <ScrollView
+                android:id="@+id/svDetailOtherRecommendation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvDetailOtherRecommendation">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvDetailOtherRecommendation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:scrollbars="horizontal"
+                    android:layout_below="@id/tvJudulJaccard"
+                    tools:listitem="@layout/item_other_recommendation" />
+            </ScrollView>
+        </RelativeLayout>
+    </RelativeLayout>
+</ScrollView>

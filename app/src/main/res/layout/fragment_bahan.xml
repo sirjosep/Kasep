@@ -25,8 +25,7 @@
             android:layout_marginHorizontal="45dp"
             android:textAlignment="center"
             android:text="Anda belum memiliki riwayat deteksi, tekan tombol dibawah untuk memulai"
-            android:textColor="@color/oranye"
-            android:visibility="gone"/>
+            android:textColor="@color/oranye"/>
         <ImageView
             android:id="@+id/ivArrowDown"
             android:layout_width="100dp"
@@ -34,8 +33,7 @@
             android:layout_below="@id/tvHistoryNull"
             android:layout_centerHorizontal="true"
             android:backgroundTint="@color/oranye"
-            android:background="@drawable/ic_baseline_arrow_downward_24"
-            android:visibility="gone"/>
+            android:background="@drawable/ic_baseline_arrow_downward_24"/>
     </RelativeLayout>
 
 

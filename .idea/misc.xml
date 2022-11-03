@@ -28,13 +28,13 @@
         <entry key="..\:/Users/Josep/Documents/Kuliah/Semester 8/Skripsi/Aplikasi/Kasep/app/src/main/res/layout/activity_detect.xml" value="0.19157608695652173" />
         <entry key="..\:/Users/Josep/Documents/Kuliah/Semester 8/Skripsi/Aplikasi/Kasep/app/src/main/res/layout/activity_edit_profile.xml" value="0.19157608695652173" />
         <entry key="..\:/Users/Josep/Documents/Kuliah/Semester 8/Skripsi/Aplikasi/Kasep/app/src/main/res/layout/activity_hasil_deteksi.xml" value="0.17980072463768115" />
-        <entry key="..\:/Users/Josep/Documents/Kuliah/Semester 8/Skripsi/Aplikasi/Kasep/app/src/main/res/layout/activity_hasil_rekomendasi.xml" value="0.19157608695652173" />
+        <entry key="..\:/Users/Josep/Documents/Kuliah/Semester 8/Skripsi/Aplikasi/Kasep/app/src/main/res/layout/activity_hasil_rekomendasi.xml" value="0.2" />
         <entry key="..\:/Users/Josep/Documents/Kuliah/Semester 8/Skripsi/Aplikasi/Kasep/app/src/main/res/layout/activity_home.xml" value="0.25" />
         <entry key="..\:/Users/Josep/Documents/Kuliah/Semester 8/Skripsi/Aplikasi/Kasep/app/src/main/res/layout/activity_login.xml" value="0.22" />
         <entry key="..\:/Users/Josep/Documents/Kuliah/Semester 8/Skripsi/Aplikasi/Kasep/app/src/main/res/layout/activity_lupa_password.xml" value="0.17028985507246377" />
         <entry key="..\:/Users/Josep/Documents/Kuliah/Semester 8/Skripsi/Aplikasi/Kasep/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Users/Josep/Documents/Kuliah/Semester 8/Skripsi/Aplikasi/Kasep/app/src/main/res/layout/activity_register.xml" value="0.19202898550724637" />
-        <entry key="..\:/Users/Josep/Documents/Kuliah/Semester 8/Skripsi/Aplikasi/Kasep/app/src/main/res/layout/activity_rekomendasi.xml" value="0.25" />
+        <entry key="..\:/Users/Josep/Documents/Kuliah/Semester 8/Skripsi/Aplikasi/Kasep/app/src/main/res/layout/activity_rekomendasi.xml" value="0.20679012345679013" />
         <entry key="..\:/Users/Josep/Documents/Kuliah/Semester 8/Skripsi/Aplikasi/Kasep/app/src/main/res/layout/activity_splash.xml" value="0.17481884057971014" />
         <entry key="..\:/Users/Josep/Documents/Kuliah/Semester 8/Skripsi/Aplikasi/Kasep/app/src/main/res/layout/file_paths.xml" value="0.19157608695652173" />
         <entry key="..\:/Users/Josep/Documents/Kuliah/Semester 8/Skripsi/Aplikasi/Kasep/app/src/main/res/layout/fragment_bahan.xml" value="0.1" />
@@ -51,10 +51,14 @@
         <entry key="..\:/Users/Josep/Documents/Kuliah/Semester 8/Skripsi/Aplikasi/Kasep/app/src/main/res/layout/item_bahan_resep.xml" value="0.19157608695652173" />
         <entry key="..\:/Users/Josep/Documents/Kuliah/Semester 8/Skripsi/Aplikasi/Kasep/app/src/main/res/layout/item_detail_recipe.xml" value="0.19157608695652173" />
         <entry key="..\:/Users/Josep/Documents/Kuliah/Semester 8/Skripsi/Aplikasi/Kasep/app/src/main/res/layout/item_hasil_deteksi.xml" value="0.2078804347826087" />
+        <entry key="..\:/Users/Josep/Documents/Kuliah/Semester 8/Skripsi/Aplikasi/Kasep/app/src/main/res/layout/item_history_rekomendasi.xml" value="0.25" />
         <entry key="..\:/Users/Josep/Documents/Kuliah/Semester 8/Skripsi/Aplikasi/Kasep/app/src/main/res/layout/item_my_recipe.xml" value="0.19157608695652173" />
+        <entry key="..\:/Users/Josep/Documents/Kuliah/Semester 8/Skripsi/Aplikasi/Kasep/app/src/main/res/layout/item_other_recommendation.xml" value="0.19746376811594202" />
+        <entry key="..\:/Users/Josep/Documents/Kuliah/Semester 8/Skripsi/Aplikasi/Kasep/app/src/main/res/layout/item_pilih_bahan.xml" value="0.1875" />
         <entry key="..\:/Users/Josep/Documents/Kuliah/Semester 8/Skripsi/Aplikasi/Kasep/app/src/main/res/layout/item_resep.xml" value="0.25" />
         <entry key="..\:/Users/Josep/Documents/Kuliah/Semester 8/Skripsi/Aplikasi/Kasep/app/src/main/res/layout/item_step_resep.xml" value="0.2078804347826087" />
         <entry key="..\:/Users/Josep/Documents/Kuliah/Semester 8/Skripsi/Aplikasi/Kasep/app/src/main/res/layout/item_tutorial_dialog.xml" value="0.18" />
+        <entry key="..\:/Users/Josep/Documents/Kuliah/Semester 8/Skripsi/Aplikasi/Kasep/app/src/main/res/layout/item_youtube_player.xml" value="0.19384057971014493" />
         <entry key="..\:/Users/Josep/Documents/Kuliah/Semester 8/Skripsi/Aplikasi/Kasep/app/src/main/res/layout/layout_input_bahan.xml" value="0.19202898550724637" />
         <entry key="..\:/Users/Josep/Documents/Kuliah/Semester 8/Skripsi/Aplikasi/Kasep/app/src/main/res/layout/tutorial_pager_layout.xml" value="0.1" />
         <entry key="..\:/Users/Josep/Documents/Kuliah/Semester 8/Skripsi/Aplikasi/Kasep/app/src/main/res/menu/item_menu.xml" value="0.209375" />

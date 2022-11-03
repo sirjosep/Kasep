@@ -6,20 +6,28 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_putih"
     tools:context=".recipe.DetailRecipeActivity">
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
         <RelativeLayout
+            android:id="@+id/rl"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:gravity="center"
             android:background="@color/oranye">
-
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/mgbrushversion2_regular"
+                    android:textSize="48sp"
+                    android:textColor="@color/white"
+                    android:text="Detail Recipe"/>
         </RelativeLayout>
         <FrameLayout
             android:id="@+id/flThumbnailDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/rl"
             android:visibility="gone">
             <ImageView
                 android:id="@+id/ivThumbnailDetail"
@@ -45,6 +53,7 @@
             android:id="@+id/rlTagsDetail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/flThumbnailDetail"
             android:visibility="gone">
             <RelativeLayout
                 android:id="@+id/rlWaktuMemasakDetail"
@@ -68,7 +77,6 @@
                     android:layout_centerInParent="true"
                     android:layout_toRightOf="@id/ivIconWaktuMemasakDetail"
                     android:padding="8dp"
-                    android:text="Waktu Memasak"
                     android:textColor="@color/oranye"
                     android:textSize="15sp" />
             </RelativeLayout>
@@ -96,8 +104,7 @@
                     android:layout_centerHorizontal="true"
                     android:padding="8dp"
                     android:textSize="15sp"
-                    android:textColor="@color/oranye"
-                    android:text="Porsi" />
+                    android:textColor="@color/oranye"/>
             </RelativeLayout>
 
             <TextView
@@ -108,7 +115,6 @@
                 android:layout_marginEnd="10dp"
                 android:background="@color/transparent"
                 android:padding="8dp"
-                android:text="Tingkat Kesulitan"
                 android:textColor="@color/white"
                 android:textSize="15sp"
                 android:textStyle="bold" />
@@ -121,6 +127,7 @@
             android:background="@drawable/kotak_oranye"
             android:padding="20dp"
             android:layout_margin="20dp"
+            android:layout_below="@id/rlTagsDetail"
             android:visibility="gone">
             <TextView
                 android:id="@+id/tvJudulDeskripsi"
@@ -156,6 +163,7 @@
             android:background="@drawable/kotak_oranye"
             android:padding="10dp"
             android:layout_margin="20dp"
+            android:layout_below="@id/rlDeskripsi"
             android:visibility="gone">
             <TextView
                 android:id="@+id/tvJudulBahan"
@@ -183,6 +191,7 @@
             android:layout_gravity="center_horizontal"
             android:background="@drawable/kotak_oranye"
             android:padding="10dp"
+            android:layout_below="@id/rlBahan"
             android:layout_margin="20dp"
             android:visibility="gone">
             <TextView
@@ -203,5 +212,49 @@
                 android:layout_below="@id/tvJudulStep"
                 tools:listitem="@layout/item_step_resep" />
         </RelativeLayout>
-    </LinearLayout>
+        <RelativeLayout
+            android:id="@+id/rlYoutube"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/kotak_oranye"
+            android:layout_margin="20dp"
+            android:padding="20dp"
+            android:layout_below="@id/rlStep"
+            android:visibility="gone">
+            <TextView
+                android:id="@+id/tvJudulYoutube"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:text="Video"/>
+            <TextView
+                android:id="@+id/tvDeskripsiYoutube"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/tvJudulYoutube"
+                android:text="Beberapa video lain yang mungkin dapat dijadikan referensi :"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="12sp"/>
+
+            <ScrollView
+                android:id="@+id/svYoutubeDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvDeskripsiYoutube">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvYoutubePlayer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:scrollbars="horizontal"
+                    tools:listitem="@layout/item_youtube_player" />
+            </ScrollView>
+        </RelativeLayout>
+    </RelativeLayout>
 </ScrollView>

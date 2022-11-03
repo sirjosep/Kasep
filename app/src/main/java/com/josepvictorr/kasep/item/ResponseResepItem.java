@@ -19,8 +19,8 @@ public class ResponseResepItem {
 	@SerializedName("key")
 	private String key;
 
-	@SerializedName("dificulty")
-	private String dificulty;
+	@SerializedName("difficulty")
+	private String difficulty;
 
 	public String getTimes(){
 		return times;
@@ -42,7 +42,7 @@ public class ResponseResepItem {
 		return key;
 	}
 
-	public String getDificulty(){
-		return dificulty;
+	public String getDifficulty(){
+		return difficulty;
 	}
 }

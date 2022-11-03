@@ -13,19 +13,18 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.josepvictorr.kasep.R;
 import com.josepvictorr.kasep.adapter.BahanAdapter;
-import com.josepvictorr.kasep.adapter.RecipeAdapter;
-import com.josepvictorr.kasep.item.ResponseHistoryBahanItem;
-import com.josepvictorr.kasep.item.ResponseResepItem;
+import com.josepvictorr.kasep.item.bahan.ResponseHistoryHasilDeteksiItem;
 import com.josepvictorr.kasep.model.ResponseHistoryBahan;
-import com.josepvictorr.kasep.model.ResponseResep;
 import com.josepvictorr.kasep.util.apihelper.KasepApiService;
-import com.josepvictorr.kasep.util.apihelper.MasakApaApiService;
 import com.josepvictorr.kasep.util.apihelper.UtilsApi;
 import com.josepvictorr.kasep.util.sharedpref.PrefManager;
 
@@ -40,15 +39,14 @@ public class BahanFragment extends Fragment {
 
     Context mContext;
     RecyclerView rvBahan;
-    SwipeRefreshLayout refreshResep;
     ProgressDialog loading;
     BahanAdapter bahanAdapter;
     KasepApiService mKasepApiService;
     PrefManager prefManager;
     TextView tvHistoryNull;
     ImageView ivArrowDown;
-
-    List<ResponseHistoryBahanItem> responseHistoryBahanItemList = new ArrayList<>();
+    LinearLayout llPilihBahan;
+    List<ResponseHistoryHasilDeteksiItem> responseHistoryBahanItemList = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,27 +58,13 @@ public class BahanFragment extends Fragment {
         prefManager = new PrefManager(mContext);
         tvHistoryNull = rootView.findViewById(R.id.tvHistoryNull);
         ivArrowDown = rootView.findViewById(R.id.ivArrowDown);
+        llPilihBahan = rootView.findViewById(R.id.llPilihBahan);
         bahanAdapter = new BahanAdapter(getContext(), responseHistoryBahanItemList);
         RecyclerView.LayoutManager mLayoutManger = new LinearLayoutManager(getContext());
         rvBahan.setLayoutManager(mLayoutManger);
         rvBahan.setItemAnimator(new DefaultItemAnimator());
         requestTampilBahan();
         return rootView;
-
-//        refreshResep = rootView.findViewById(R.id.refreshResep);
-//        refreshResep.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                refreshItem();
-//            }
-//            private void refreshItem(){
-//                getResultRecipeList();
-//                onItemLoad();
-//            }
-//            private void onItemLoad() {
-//                refreshResep.setRefreshing(false);
-//            }
-//        });
     }
 
     private void requestTampilBahan() {
@@ -90,11 +74,13 @@ public class BahanFragment extends Fragment {
             @Override
             public void onResponse(Call<ResponseHistoryBahan> call, Response<ResponseHistoryBahan> response) {
                 loading.dismiss();
-                final List<ResponseHistoryBahanItem> responseHistoryBahanItems = response.body().getListBahan();
+                final List<ResponseHistoryHasilDeteksiItem> responseHasilDeteksiItem = response.body().getHasilDeteksi();
 
                 if (response.body().getJumlahBahan() > 0) {
                     rvBahan.setVisibility(View.VISIBLE);
-                    rvBahan.setAdapter(new BahanAdapter(mContext, responseHistoryBahanItems));
+                    tvHistoryNull.setVisibility(View.GONE);
+                    ivArrowDown.setVisibility(View.GONE);
+                    rvBahan.setAdapter(new BahanAdapter(mContext, responseHasilDeteksiItem));
                     bahanAdapter.notifyDataSetChanged();
                 } else if (response.body().getJumlahBahan() == 0) {
                     tvHistoryNull.setVisibility(View.VISIBLE);
